@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from blog.models import Blog
-from blog.serializers import BlogSerializer
+from blog.models import Blog,BlogProduct
+from blog.serializers import BlogSerializer,BlogProductSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
 from rest_framework import generics
@@ -38,4 +38,24 @@ class BlogGetUpdateSlug(generics.RetrieveUpdateAPIView):
 class BlogDelete(generics.DestroyAPIView):
 	queryset = Blog.objects.all()
 	serializer_class = BlogSerializer
+	permission_classes = (IsAuthenticatedOrReadOnly,)
+ 
+class BlogProductListCreate(generics.ListCreateAPIView):
+    queryset = BlogProduct.objects.all()
+    serializer_class = BlogProductSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
+    filterset_fields = ('blog', 'product')
+    search_fields = ('name',)
+    ordering_fields = ("created","updated")
+    pagination_class = MyPagination
+    
+class BlogProductGetUpdate(generics.RetrieveUpdateAPIView):
+	queryset = BlogProduct.objects.all()
+	serializer_class = BlogProductSerializer
+	permission_classes = (AllowAny,)
+	
+class BlogProductDelete(generics.DestroyAPIView):
+	queryset = BlogProduct.objects.all()
+	serializer_class = BlogProductSerializer
 	permission_classes = (IsAuthenticatedOrReadOnly,)
