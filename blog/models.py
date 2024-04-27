@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from imagekit.models import ProcessedImageField # type: ignore
 from imagekit.processors import ResizeToFill # type: ignore
 
+from product.models import Product
 
 # Create your models here.
 class Blog(models.Model):
@@ -36,4 +37,11 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+class BlogProduct(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    ranking = models.IntegerField(default=1)
     
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
