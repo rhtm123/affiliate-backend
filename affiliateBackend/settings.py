@@ -31,6 +31,9 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
+if config('HOST', default="localhost") == 'production':
+    ALLOWED_HOSTS.append('mastdeal.up.railway.app')
+
 
 # Application definition
 
