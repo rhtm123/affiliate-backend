@@ -69,11 +69,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGIN = '*'
 
 CSRF_TRUSTED_ORIGINS = [
-    'mastdeal.up.railway.app',
-],
-
+    'https://mastdeal.up.railway.app',
+]
 CORS_ORIGIN_WHITELIST = [
-    'mastdeal.up.railway.app',
+    'https://mastdeal.up.railway.app',
 ]
 
 ROOT_URLCONF = 'affiliateBackend.urls'
@@ -147,7 +146,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
