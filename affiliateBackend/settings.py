@@ -29,10 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
-
-if config('HOST', default="localhost") == 'production':
-    ALLOWED_HOSTS.append('mastdeal.up.railway.app')
+ALLOWED_HOSTS = ['mastdeal.up.railway.app']
 
 
 # Application definition
@@ -71,6 +68,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOWED_ORIGIN = '*'
 
+CSRF_TRUSTED_ORIGINS = [
+    'mastdeal.up.railway.app',
+],
+
+CORS_ORIGIN_WHITELIST = [
+    'mastdeal.up.railway.app',
+]
 
 ROOT_URLCONF = 'affiliateBackend.urls'
 
