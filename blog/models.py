@@ -7,10 +7,12 @@ from imagekit.models import ProcessedImageField # type: ignore
 from imagekit.processors import ResizeToFill # type: ignore
 
 from product.models import Product
+from category.models import Category
 
 # Create your models here.
 class Blog(models.Model):
     title = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
     seo_title = models.TextField(null=True, blank=True, max_length=100)
     seo_description = models.TextField(null=True, blank=True, max_length=255)

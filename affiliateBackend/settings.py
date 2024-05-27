@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-import os
-
 from decouple import config
 
 
@@ -53,6 +51,7 @@ INSTALLED_APPS = [
     "category.apps.CategoryConfig",
     "company.apps.CompanyConfig",
     "product.apps.ProductConfig",
+    "marketplace.apps.MarketplaceConfig",
 ]
 
 MIDDLEWARE = [
@@ -94,16 +93,28 @@ WSGI_APPLICATION = 'affiliateBackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# print(config("HOST"));
 
-if config('HOST', default="localhost"):
+if config('HOST', default="localhost") != 'localhost':
+    # print(config("HOST"))
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DATABASE_NAME'),
+            'USER': config('DATABASE_USER'),
+            'PASSWORD': config('DATABASE_PASSWORD'),
+            'HOST': config('DATABASE_HOST'),
+            'PORT': config('DATABASE_PORT'),
+            'OPTIONS': {'sslmode': 'require'},
+            }
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
-    pass 
 
 
 # Password validation

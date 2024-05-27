@@ -12,7 +12,7 @@ class MyPagination(PageNumberPagination):
 	page_size = 15
 
 class CategoryListCreate(generics.ListCreateAPIView):
-	queryset = Category.objects.all()
+	queryset = Category.objects.all().order_by('id')
 	serializer_class = CategorySerializer
 	permission_classes = (IsAuthenticatedOrReadOnly,)
 	filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)

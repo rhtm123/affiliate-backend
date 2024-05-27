@@ -14,11 +14,11 @@ class MyPagination(PageNumberPagination):
 	
 
 class BlogListCreate(generics.ListCreateAPIView):
-	queryset = Blog.objects.all()
+	queryset = Blog.objects.all().order_by('id')
 	serializer_class = BlogSerializer
 	permission_classes = (IsAuthenticatedOrReadOnly,)
 	filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
-	filterset_fields = ('author', 'is_published', 'tags')
+	filterset_fields = ('author', 'is_published', 'tags', 'category', )
 	search_fields = ('title',)
 	ordering_fields = ('views','likes',"created","updated")
 	pagination_class = MyPagination
@@ -41,7 +41,7 @@ class BlogDelete(generics.DestroyAPIView):
 	permission_classes = (IsAuthenticatedOrReadOnly,)
  
 class BlogProductListCreate(generics.ListCreateAPIView):
-    queryset = BlogProduct.objects.all()
+    queryset = BlogProduct.objects.all().order_by('id')
     serializer_class = BlogProductSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
