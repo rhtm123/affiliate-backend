@@ -7,17 +7,64 @@ from .models import ProductVariantAffiliate
 from .models import PriceTrack
 from rest_framework import serializers
 
+
+class ProductVariantFeatureSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductVariantFeature
+        fields = ['product_variant','feature']
+        depth = 1
+
+class ProductVariantAffiliateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductVariantAffiliate
+        fields = '__all__'
+        
+class ProductVariantSerializer(serializers.ModelSerializer):
+    affiliates = ProductVariantAffiliateSerializer(many=True, read_only=True, source='productvariantaffiliate_set')  # Nested serializer for children
+    # features = ProductVariantFeatureSerializer(many=True, read_only=True, source="productvariantfeature_set")
+    
+    class Meta:
+        model = ProductVariant
+        fields = ['id','name','mrp','product', "affiliates"]    
+
+
+# class ProductVariant2Serializer(serializers.ModelSerializer):
+    
+#     class Meta:
+#         model = ProductVariant
+#         fields = "__all__"
+
 class ProductSerializer(serializers.ModelSerializer):
+    variants = ProductVariantSerializer(many=True, read_only=True, source='productvariant_set')
     
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name', 'company', 'release_date', 'detail', 'category', 'variants']
 
 class FeatureCategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = FeatureCategory
         fields = '__all__'
+
+
+class ProductVariantAffiliateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductVariantAffiliate
+        fields = '__all__'
+        
+class ProductVariantSerializer(serializers.ModelSerializer):
+    affiliates = ProductVariantAffiliateSerializer(many=True, read_only=True, source='productvariantaffiliate_set')  # Nested serializer for children
+    
+    class Meta:
+        model = ProductVariant
+        fields = ['id','name','mrp','product', "affiliates"]    
+
+
+
         
 class FeatureSerializer(serializers.ModelSerializer):
     
@@ -25,25 +72,11 @@ class FeatureSerializer(serializers.ModelSerializer):
         model = Feature
         fields = '__all__'
         
-class ProductVariantSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = ProductVariant
-        fields = '__all__'       
+ 
         
-class ProductVariantFeatureSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = ProductVariantFeature
-        fields = ['product_variant','feature']
-        depth = 1
+
         
-class ProductVariantAffiliateSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = ProductVariantAffiliate
-        fields = '__all__'
-        
+
 class PriceTrackSerializer(serializers.ModelSerializer):
     
     class Meta:

@@ -14,6 +14,9 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
+    start_price = models.IntegerField(default=0)
+    end_price = models.IntegerField(default=0)
+
     seo_title = models.TextField(null=True, blank=True, max_length=100)
     seo_description = models.TextField(null=True, blank=True, max_length=255)
     detail = models.TextField()
