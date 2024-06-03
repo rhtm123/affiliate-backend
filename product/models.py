@@ -42,7 +42,6 @@ class ProductVariant(models.Model):
 
     name = models.CharField(max_length=255, null=True, blank=True)
     mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
-    current_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return f'{self.product.name} {self.name}'
@@ -57,6 +56,7 @@ class ProductVariantFeature(models.Model):
 class ProductVariantAffiliate(models.Model):
     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, null=True, blank=True)
     marketplace = models.ForeignKey(MarketPlace, on_delete=models.CASCADE, blank=True, null=True)
+    current_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     affiliate_link = models.TextField(null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -64,7 +64,8 @@ class ProductVariantAffiliate(models.Model):
 
     
 class PriceTrack(models.Model):
-    product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, null=True, blank=True)
+    # product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, null=True, blank=True)
+    affiliate = models.ForeignKey(ProductVariantAffiliate, on_delete=models.CASCADE, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
 
     created = models.DateTimeField(auto_now_add=True)

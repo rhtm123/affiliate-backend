@@ -136,7 +136,7 @@ class ProductVariantFeatureListCreate(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
     filterset_fields = ('product_variant','feature')
-    search_fields = ('name',)
+    # search_fields = ('name',)
     ordering_fields = ("created","updated")
     pagination_class = MyPagination
 
@@ -162,7 +162,7 @@ class ProductVariantAffiliateListCreate(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
     filterset_fields = ('product_variant','marketplace',)
-    search_fields = ('name',)
+    # search_fields = ('name',)
     ordering_fields = ("created","updated")
     pagination_class = MyPagination
 
@@ -187,8 +187,8 @@ class PriceTrackListCreate(generics.ListCreateAPIView):
     serializer_class = PriceTrackSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter)
-    filterset_fields = ('product_variant',)
-    search_fields = ('name',)
+    filterset_fields = ('affiliate',)
+    # search_fields = ('name',)
     ordering_fields = ("created","updated")
     pagination_class = MyPagination
 

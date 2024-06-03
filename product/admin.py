@@ -35,7 +35,7 @@ class PriceTrackInline(admin.TabularInline):
 
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    inlines = [ProductVariantFeatureInline,ProductVariantAffiliateInline, PriceTrackInline]
+    inlines = [ProductVariantFeatureInline,ProductVariantAffiliateInline]
     # list_display = ('name','get_course_name')
     list_filter = ('product',)
 
