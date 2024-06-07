@@ -1,20 +1,19 @@
 # models.py
+from django.template.defaultfilters import slugify
+
 from django.db import models
 from category.models import Category
 from company.models import Company
 from marketplace.models import MarketPlace
 
+
 class FeatureCategory(models.Model):
     name = models.CharField(max_length=255)
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
 class Feature(models.Model):
-    feature_category = models.ForeignKey(FeatureCategory, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
     value = models.TextField(max_length=255)
     value_number = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
@@ -24,8 +23,9 @@ class Feature(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     release_date = models.DateField(null=True, blank=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     # 
     detail = models.TextField()
     # mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
@@ -36,21 +36,35 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
-
     name = models.CharField(max_length=255, null=True, blank=True)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
+
     mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
 
     def __str__(self):
         return f'{self.product.name} {self.name}'
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f'{self.product.name} {self.name}')
+        super(ProductVariant, self).save(*args, **kwargs)    
 
 
 class ProductVariantFeature(models.Model):
     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, null=True, blank=True)
-    feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    feature_category = models.ForeignKey(FeatureCategory, on_delete=models.CASCADE, null=True, blank=True)
 
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    is_key_feature = models.BooleanField(default=False)
+
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
     
 class ProductVariantAffiliate(models.Model):

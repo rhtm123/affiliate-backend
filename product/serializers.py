@@ -12,7 +12,8 @@ class ProductVariantFeatureSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ProductVariantFeature
-        fields = ['product_variant','feature']
+        fields = '__all__'
+
         depth = 1
 
 class ProductVariantAffiliateSerializer(serializers.ModelSerializer):
@@ -27,7 +28,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ProductVariant
-        fields = ['id','name','mrp','product', "affiliates"]    
+        fields = ['id','name','mrp','product', "slug", "affiliates"]    
 
 
 # class ProductVariant2Serializer(serializers.ModelSerializer):
@@ -61,7 +62,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ProductVariant
-        fields = ['id','name','mrp','product', "affiliates"]    
+        fields = ['id','name','mrp','product', "slug", "affiliates"]
 
 
 
