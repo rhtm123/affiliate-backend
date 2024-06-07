@@ -63,7 +63,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductVariant
         fields = ['id','name','mrp','product', "slug", "affiliates"]
-        depth = 1 
+        depth = 2
 
 
 

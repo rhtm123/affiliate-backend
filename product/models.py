@@ -12,7 +12,7 @@ class FeatureCategory(models.Model):
 
     def __str__(self):
         return self.name
-
+    
 class Feature(models.Model):
     name = models.CharField(max_length=255)
     value = models.TextField(max_length=255)
