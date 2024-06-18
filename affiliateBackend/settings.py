@@ -70,9 +70,11 @@ CORS_ALLOWED_ORIGIN = '*'
 
 CSRF_TRUSTED_ORIGINS = [
     'https://mastdeal.up.railway.app',
+    "https://mdh.thelearningsetu.com",
 ]
 CORS_ORIGIN_WHITELIST = [
     'https://mastdeal.up.railway.app',
+    "https://mdh.thelearningsetu.com",
 ]
 
 ROOT_URLCONF = 'affiliateBackend.urls'
