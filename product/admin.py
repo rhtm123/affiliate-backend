@@ -5,7 +5,14 @@ from django.contrib import admin
 from .models import PriceTrack, ProductVariantFeature, ProductVariantAffiliate, Product, ProductVariant, FeatureCategory, Feature
 
 admin.site.register(FeatureCategory)
-admin.site.register(Feature)
+
+class FeatureAdmin(admin.ModelAdmin):
+    list_display = ("name", "value", "value_number")
+    list_filter = ()
+    search_fields = ("name", )
+
+admin.site.register(Feature, FeatureAdmin)
+
 
 class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
@@ -14,8 +21,9 @@ class ProductVariantInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
 
     inlines = [ProductVariantInline,]
-    # list_display = ('name','get_course_name')
+    list_display = ('name','id','company', "release_date","category")
     list_filter = ('company', 'category',)
+    search_fields = ("name",)
 
 admin.site.register(Product, ProductAdmin);
 
@@ -36,7 +44,9 @@ class PriceTrackInline(admin.TabularInline):
 
 class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [ProductVariantFeatureInline,ProductVariantAffiliateInline]
-    # list_display = ('name','get_course_name')
+    list_display = ('name','id', 'product')
     list_filter = ('product',)
+    search_fields = ('product__name', )
 
 admin.site.register(ProductVariant, ProductVariantAdmin);
+

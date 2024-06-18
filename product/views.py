@@ -23,6 +23,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class MyPagination(PageNumberPagination):
 	page_size = 15
+
+
+class FeaturePagination(PageNumberPagination):
+	page_size = 100
 	
 
 class ProductListCreate(generics.ListCreateAPIView):
@@ -86,7 +90,7 @@ class FeatureListCreate(generics.ListCreateAPIView):
     filterset_fields = ('feature_category',)
     search_fields = ('name',)
     ordering_fields = ("created","updated")
-    pagination_class = MyPagination
+    pagination_class = FeaturePagination
 
 class FeatureGetUpdate(generics.RetrieveUpdateAPIView):
 	queryset = Feature.objects.all()
