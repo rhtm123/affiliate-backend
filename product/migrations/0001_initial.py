@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('value', models.TextField(max_length=255)),
-                ('value_number', models.DecimalField(blank=True, decimal_places=5, max_digits=10, null=True)),
+                ('value_number', models.DecimalField(decimal_places=5, max_digits=10)),
             ],
         ),
         migrations.CreateModel(

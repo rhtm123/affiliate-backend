@@ -43,6 +43,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['name', 'company', 'release_date', 'detail', 'category', 'variants']
+        depth = 1
 
 class FeatureCategorySerializer(serializers.ModelSerializer):
     
