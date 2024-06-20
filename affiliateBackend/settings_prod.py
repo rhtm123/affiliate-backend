@@ -1,6 +1,5 @@
 from affiliateBackend.settings import *
 
-DEBUG = False
 
 DATABASES = {
     'default': {

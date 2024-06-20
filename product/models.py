@@ -46,7 +46,10 @@ class ProductVariant(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     slug = models.SlugField(max_length=255, blank=True, null=True)
 
-    mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
+    official_link = models.URLField(blank=True, null=True)
+    status = models.CharField(max_length=255, blank=True, null=True,) ## available, ## discontinued
+
+    # mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
 
     def __str__(self):
         return f'{self.product.name} {self.name}'
