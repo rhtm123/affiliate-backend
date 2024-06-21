@@ -64,18 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True 
-CORS_ALLOWED_ORIGIN = '*'
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://mastdeal.up.railway.app',
-    "https://mdh.thelearningsetu.com",
-]
-CORS_ORIGIN_WHITELIST = [
-    'https://mastdeal.up.railway.app',
-    "https://mdh.thelearningsetu.com",
-]
 
 ROOT_URLCONF = 'affiliateBackend.urls'
 
