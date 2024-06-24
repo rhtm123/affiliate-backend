@@ -6,6 +6,16 @@ from .models import PriceTrack, ProductVariantFeature, ProductVariantAffiliate, 
 
 admin.site.register(FeatureCategory)
 
+from django.core import serializers
+from django.http import HttpResponse
+
+def export_as_json(modeladmin, request, queryset):
+    response = HttpResponse(content_type="application/json")
+    serializers.serialize("json", queryset, stream=response)
+    return response
+
+admin.site.add_action(export_as_json)
+
 class FeatureAdmin(admin.ModelAdmin):
     list_display = ("name", "value", "value_number")
     list_filter = ()

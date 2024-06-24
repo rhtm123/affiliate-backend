@@ -16,7 +16,7 @@ class FeatureCategory(models.Model):
 class Feature(models.Model):
     name = models.CharField(max_length=255)
     value = models.TextField(max_length=255)
-    value_number = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    value_number = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} {self.value[:20]}'
