@@ -47,7 +47,7 @@ admin.site.register(Product, ProductAdmin);
 #     model = ProductVariantFeature
 #     extra = 1 
 
-class ProductVariantAffiliateInline(admin.TabularInline):
+class ProductVariantAffiliateInline(admin.StackedInline):
     model = ProductVariantAffiliate
     extra = 1
 
@@ -55,21 +55,14 @@ class PriceTrackInline(admin.TabularInline):
     model = PriceTrack
     extra = 1
 
-
-class LimitedInlineFormSet(BaseInlineFormSet):
-    @cached_property
-    def queryset(self):
-        qs = super().get_queryset()
-        return qs[:20]  # Limit the number of items displayed to 20
-
-class ProductVariantFeatureInline(admin.TabularInline):
+class ProductVariantFeatureInline(admin.StackedInline):
     model = ProductVariantFeature
     extra = 0
-    formset = LimitedInlineFormSet
+    # formset = LimitedInlineFormSet
     
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    inlines = [ProductVariantAffiliateInline, ProductVariantFeatureInline]
+    inlines = [ProductVariantAffiliateInline,ProductVariantFeatureInline]
     list_display = ('name','id','slug','product')
     list_filter = ('product',)
     search_fields = ('product__name', )
@@ -79,11 +72,14 @@ admin.site.register(ProductVariant, ProductVariantAdmin);
 class ProductVariantFeatureAdmin(admin.ModelAdmin):
     list_per_page = 20  # Adjust this number as needed
 
-    list_display = ("product_variant", 'feature')
+    list_display = ("variant_name", "product_variant", 'feature')
 
-    raw_id_fields = ['product_variant', "feature"]
+    # raw_id_fields = ['product_variant', "feature"]
 
     # list_filter = ("product_variant",)
-    # # search_fields = ("product_variant__product__name", )
+
+    def variant_name(self, obj):
+        return obj.product_variant.product
+    search_fields = ("product_variant__product__name", )
 
 admin.site.register(ProductVariantFeature, ProductVariantFeatureAdmin);
