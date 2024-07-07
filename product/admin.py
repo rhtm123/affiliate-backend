@@ -31,7 +31,7 @@ class ProductVariantInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
 
     inlines = [ProductVariantInline,]
-    list_display = ('name','id','company', "release_date","category")
+    list_display = ('name','id','company', 'slug',"release_date","category")
     list_filter = ('company', 'category',)
     search_fields = ("name",)
 
@@ -54,7 +54,7 @@ class PriceTrackInline(admin.TabularInline):
 
 class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [ProductVariantFeatureInline,ProductVariantAffiliateInline]
-    list_display = ('name','id', 'product')
+    list_display = ('name','id','slug','product')
     list_filter = ('product',)
     search_fields = ('product__name', )
 

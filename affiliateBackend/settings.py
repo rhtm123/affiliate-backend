@@ -31,6 +31,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['mastdeal.up.railway.app', 'localhost','mdh.thelearningsetu.com']
 
+CORS_ALLOW_CREDENTIALS = True  # Disable credentials for added security
+CORS_ALLOW_ALL_ORIGINS = True  # Explicitly disallow all origins
 
 # Application definition
 
