@@ -52,7 +52,7 @@ class ProductVariant(models.Model):
     # mrp = models.DecimalField(max_digits=10, decimal_places=2) # MRP 
 
     def __str__(self):
-        return f'{self.product.name} {self.name}'
+        return f'{self.name}'
     
     def save(self, *args, **kwargs):
         self.slug = slugify(f'{self.product.name} {self.name}')
@@ -68,6 +68,9 @@ class ProductVariantFeature(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self) -> str:
+        return self.product_variant.name
 
     
 class ProductVariantAffiliate(models.Model):

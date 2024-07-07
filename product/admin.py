@@ -53,10 +53,18 @@ class PriceTrackInline(admin.TabularInline):
 
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    inlines = [ProductVariantFeatureInline,ProductVariantAffiliateInline]
+    inlines = [ProductVariantAffiliateInline]
     list_display = ('name','id','slug','product')
     list_filter = ('product',)
     search_fields = ('product__name', )
 
 admin.site.register(ProductVariant, ProductVariantAdmin);
 
+class ProductVariantFeatureAdmin(admin.ModelAdmin):
+    list_per_page = 20  # Adjust this number as needed
+
+    list_display = ("product_variant",)
+    # list_filter = ("product_variant",)
+    # # search_fields = ("product_variant__product__name", )
+
+admin.site.register(ProductVariantFeature, ProductVariantFeatureAdmin);
