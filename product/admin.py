@@ -1,6 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
+from django.forms import BaseInlineFormSet
+from django.core.paginator import Paginator
+from django.utils.functional import cached_property
+
 
 from .models import PriceTrack, ProductVariantFeature, ProductVariantAffiliate, Product, ProductVariant, FeatureCategory, Feature
 
@@ -39,9 +43,9 @@ admin.site.register(Product, ProductAdmin);
 
 
 
-class ProductVariantFeatureInline(admin.TabularInline):
-    model = ProductVariantFeature
-    extra = 1 
+# class ProductVariantFeatureInline(admin.TabularInline):
+#     model = ProductVariantFeature
+#     extra = 1 
 
 class ProductVariantAffiliateInline(admin.TabularInline):
     model = ProductVariantAffiliate
@@ -51,6 +55,18 @@ class PriceTrackInline(admin.TabularInline):
     model = PriceTrack
     extra = 1
 
+
+class LimitedInlineFormSet(BaseInlineFormSet):
+    @cached_property
+    def queryset(self):
+        qs = super().get_queryset()
+        return qs[:20]  # Limit the number of items displayed to 20
+
+class ProductVariantFeatureInline(admin.TabularInline):
+    model = ProductVariantFeature
+    extra = 0
+    formset = LimitedInlineFormSet
+    
 
 class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [ProductVariantAffiliateInline, ProductVariantFeatureInline]
