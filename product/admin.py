@@ -43,11 +43,17 @@ admin.site.register(Product, ProductAdmin);
 
 
 
-# class ProductVariantFeatureInline(admin.TabularInline):
-#     model = ProductVariantFeature
-#     extra = 1 
+class ProductVariantFeatureInline(admin.TabularInline):
+    model = ProductVariantFeature
+    extra = 0
 
-class ProductVariantAffiliateInline(admin.StackedInline):
+
+    fields = ['feature', 'is_key_feature']  # List only the necessary fields
+    raw_id_fields = ['feature',]
+    can_delete = False  # Optionally disable deletion if not needed
+
+
+class ProductVariantAffiliateInline(admin.TabularInline):
     model = ProductVariantAffiliate
     extra = 1
 
@@ -55,14 +61,14 @@ class PriceTrackInline(admin.TabularInline):
     model = PriceTrack
     extra = 1
 
-class ProductVariantFeatureInline(admin.StackedInline):
-    model = ProductVariantFeature
-    extra = 0
-    # formset = LimitedInlineFormSet
+# class ProductVariantFeatureInline(admin.StackedInline):
+#     model = ProductVariantFeature
+#     extra = 0
+#     # formset = LimitedInlineFormSet
     
 
 class ProductVariantAdmin(admin.ModelAdmin):
-    inlines = [ProductVariantAffiliateInline,ProductVariantFeatureInline]
+    inlines = [ProductVariantAffiliateInline, ProductVariantFeatureInline]
     list_display = ('name','id','slug','product')
     list_filter = ('product',)
     search_fields = ('product__name', )
