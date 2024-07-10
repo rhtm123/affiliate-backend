@@ -23,7 +23,7 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=255,null=True, blank=True)
     is_published = models.BooleanField(default=False)
 
-    img = ProcessedImageField(upload_to='blog/', processors=[ResizeToFill(1280, 720)], format='JPEG',options={'quality': 60 }, null=True,  blank=True)
+    img = ProcessedImageField(upload_to='md/blog/', processors=[ResizeToFill(1280, 720)], format='JPEG',options={'quality': 60 }, null=True,  blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
     
     views = models.IntegerField(default=0)

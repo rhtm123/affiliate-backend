@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_filters',
     'imagekit',
     'django_summernote',
+    'django_cleanup.apps.CleanupConfig',
+
     "tag.apps.TagConfig",
     "blog.apps.BlogConfig",
     "category.apps.CategoryConfig",
